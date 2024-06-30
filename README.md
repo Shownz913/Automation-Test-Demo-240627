@@ -1,5 +1,5 @@
 README
----
+------
 
  [TOC] 
 
@@ -19,12 +19,7 @@ README
 
 ### Test Case Design
 
- > The test cases are vaguely designed mostly according to my test experiences because there is no specific documentation of the API and the requirements, and the check point for each case  has mentioned the details of  the test scenario.
-
------
-
-
-
+----
 
 ####  API  01:  `post /api/image`
 
@@ -221,7 +216,7 @@ README
 ### Bug Collection
 
 
- + `post /api/zip`  upload an zip file turned out error , return status  `400`and message ` Only ZIP files are allowed`
+ + `post /api/zip`  upload an zip file response failed ,  status  `400`and message ` Only ZIP files are allowed`
 
   ![01](.\screenshot-1.png)
 
