@@ -79,6 +79,17 @@ README
 
 ##### 5. TC1_05
 
+
+ + `TC Description` : post data type is Not Formdata , response status should be 400
+ + `Steps`:  
+   + request type:x-www-form-urlencoded 
+   + request data: json data   
+ + `Expected Result` : 
+   + status : 400 , message : No files uploaded 
+ + `Check  Point` :
+
+##### 6. TC1_06
+
  + `TC Description` : request body includes illegal parameter, response status should be 40x
  + `Steps`:  
    + request body:  image file:'a'; id:100;   
@@ -88,7 +99,7 @@ README
    + should verify the illegal parameter in request body 
 
 
-##### 6. TC1_06
+##### 7. TC1_07
 
  + `TC Description` : user authority is illegal , response status should be 40x
  + `Steps`:   
@@ -99,7 +110,7 @@ README
    + should verify the user authority 
 
 
-##### 7. TC1_07
+##### 8. TC1_08
 
  + `TC Description` : check the average response time  
  + `Steps`:  
@@ -112,9 +123,10 @@ README
 
 
 
-#### API 02:  ` post, /api/zip`
 
-##### 8. TC2_01
+#### API 02:  ` post /api/zip`
+
+##### 9. TC2_01
 
  + `TC Description` : post  zip file  successfully, the returned  links can be accessed multiple times
  + `Steps`:  
@@ -128,7 +140,7 @@ README
    +  try different legal type of  image :  `.jpeg`  `.png`  `.gif`   `.tif`  ,  etc .
 
 
-##### 9. TC2_02
+##### 10. TC2_02
 
  + `TC Description` : post a image file, response status should be 400
  + `Steps`:  
@@ -138,7 +150,7 @@ README
  + `Check  Point` :
    + try different type of files :  `.doc`  `.xlx`  `.pdf`    `.tif` `.flv` , etc.
 
-#####  10. TC2_03
+#####  11. TC2_03
 
  + `TC Description` : post a zip file with illegal  parameter , response status should be 400
  + `Steps`:  
@@ -151,7 +163,7 @@ README
      + invalid character type of of Name
 
 
-##### 11. TC2_04
+##### 12. TC2_04
 
  + `TC Description` : post a zip file which include illegal files , response status should be 400
  + `Steps`:  
@@ -166,7 +178,7 @@ README
      + quantity of file in the zip  over limit
 
 
-##### 12. TC2_05
+##### 13. TC2_05
 
  + `TC Description` : request data is  None  , response status should be 400
  + `Steps`:  
@@ -174,7 +186,7 @@ README
  + `Expected Result` : 
    + status : 400 , message : No files uploaded 
 
-##### 13. TC2_06
+##### 14. TC2_06
 
  + `TC Description` : request body includes illegal parameter, response status should be 40x
  + `Steps`:  
@@ -184,7 +196,7 @@ README
  + `Check  Point` :
    + should verify the illegal parameter in request body 
 
-#####  14. TC2_07
+#####  15. TC2_07
 
  + `TC Description` : user authority is illegal , response status should be 40x
  + `Steps`:  
@@ -195,7 +207,7 @@ README
    + should verify the user authority 
 
 
-##### 15. TC2_08
+##### 16. TC2_08
 
   + `TC Description` : check the average response time of API 
   + `Steps`:  

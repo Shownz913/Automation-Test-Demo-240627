@@ -1,10 +1,20 @@
-import axios from 'axios';
-import { openAsBlob } from 'node:fs';
+import axios from 'axios'; //axios module offers functions for API request and resonde 
+import { openAsBlob } from 'node:fs'; // 'fs' module offers functions for file object
+import { OpenAsBlobOptions } from 'node:fs';
 
+const options:OpenAsBlobOptions = {
+    type: 'image/png'
+}
 const attachPicture  = async () => {
+    // define request body type  as FormData
     const param = new FormData();
-    const picture = await openAsBlob('C:/Users/90751/Pictures/Saved Pictures/1.jpg');
-    param.append('files', picture, '1.jpg');
+    // define mime type as image/png
+
+    // get a image file and save as a const param 
+    const picture = await openAsBlob('C:/Users/90751/Desktop/TypeScript/demo/screenshot-1.png', options);
+    // append the picture into the request body
+    param.append('files', picture, 'screenshot-1.png');
+    // create aN API request instance
     axios({
         // request header settings
         headers: {
@@ -15,37 +25,44 @@ const attachPicture  = async () => {
         method: 'post',
         url: 'https://test-image-api.starworks.cc:88/api/image',
         data: param
-    }).then(response => {// operation for response 
+    }).then(response => {
+        // operation when response succeed
         console.log("Response data: ", response.data);
         // get the image url message in the response body 
-        const link = response.data[0];
+        var links:string[] = response.data;
+        const link = links[0];
         // try multiple times to access the image url
         var tryCnt:number = 3; 
         var i:number; 
         var successCnt:number = 0;
         for(i = tryCnt;i>0;i--) {
+            // request the image url
             axios({
                 method: 'get',
                 url: link
             }).then(response => {
-                // count the susccessful requests    
+                // count the susccessful requests
                 successCnt++;
+                if (successCnt == tryCnt) {
+                    console.log('The image has a permanent link!');
+                    return true;
+                }
             }).catch(error => {
-                // catch error when access the image url
+                // handling exceptions while accessing the image url
                 // is 'axios' error 
                 if (axios.isAxiosError(error)) {
                     if (error.response) {
                         // The request was made and the server responded with a status code
                         // that falls out of the range of 2xx
-                        console.log('Error response status: ',error.response.status);
-                        console.log('Error response headers: ',error.response.headers);
-                        console.log('Error response data: ', error.response.data);
+                        console.log('Access Image responde error, response status: ',error.response.status);
+                        console.log('Access Image responde error, response headers: ',error.response.headers);
+                        console.log('Access Image responde error, response data: ', error.response.data);
                         
                     } else if (error.request) {
                         // The request was made but no response was received
                         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
                         // http.ClientRequest in node.js
-                        console.log('Error request', error.request);
+                        console.log('Failed to request the image', error.request);
                     } else {
                         // Something happened in setting up the request that triggered an Error
                         console.log('Unknown axios error: ', error.message);
@@ -53,13 +70,15 @@ const attachPicture  = async () => {
                 } else {
                     console.log('Unknown error: ', error);
                 }
+                // failed when request the image url
+                
+                console.log('Access the image failed,this is not a permant link!');
+                return false;
             });
         }
-        // while the successCnt is less than tryCnt, it means the url is not a permanent link. 
-        if (successCnt < tryCnt) {
-            console.log("Not a permanent link!");
-        }
-    }).catch(error => { //catch error when request fail
+        
+    // handling exceptions while request for attachPicture  
+    }).catch(error => { 
         if (axios.isAxiosError(error)) {
             if (error.response) {
                 // The request was made and the server responded with a status code
@@ -79,6 +98,7 @@ const attachPicture  = async () => {
             }
         } else {
             console.log('Unknown error: ', error);
+            return false;
         }
     });
 }
